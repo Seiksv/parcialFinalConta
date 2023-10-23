@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <!-- Agregar el enlace al CSS de Bootstrap 4.6 -->
+      <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+      integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N"
+      crossorigin="anonymous"
+    />
+  <title>Calculadora de Depreciación Por uso</title>
+</head>
+<body>
+
+<div class="container mt-5">
+  <h1>Calculadora de Depreciación Por uso</h1>
+
+  <!-- Formulario -->
+  <form id="depreciacionForm">
+
+    <!-- Costo del activo -->
+    <div class="form-group">
+      <label for="costoActivo">Costo del Activo:</label>
+      <input type="number" class="form-control" id="costoActivo" required min=0 step=0.01>
+    </div>
+
+    <!-- Valor Residual -->
+    <div class=form-group><label for='valorResidual'>Valor Residual:</label><input type='number' class='form-control' id='valorResidual' required min=0 step=0.01></div>
+
+     <!-- Vida Útil Total Estimada -->
+     <div class=form-group><label for='vidaUtilTotal'>Vida Útil Total Estimada:</label><input type='number' class='form-control' id='vidaUtilTotal' required min=1></div>
+
+
+    <!-- Botón para calcular la depreciación -->
+    <button type='submit' class='btn btn-primary'>Calcular Depreciación</button>
+
+  </form>
+
+
+<!-- Resultado -->
+<table id='resultadoTabla' class='table mt-5'>
+<thead><tr><th>Año</th><th>Depreciación Anual</th><th>Valor util depreciada</th><th>Valor Depreciado del activo</th><th>Valor del activo en libro</th><th>Porcentaje Depreciado</th></tr></thead>
+<tbody>
+</tbody>
+</table>
+
+
+<!-- Script JS -->
+
+  <!-- Bootstrap core JavaScript-->
+  <script src="../vendor/jquery/jquery.min.js"></script>
+  <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+<script>
+  // Función para calcular la depreciación anual
+  function calcularDepreciacion() {
+    let costoActivo = parseFloat(document.getElementById('costoActivo').value);
+    let vidaUtilTotal = parseInt(document.getElementById('vidaUtilTotal').value);
+    let valorResidual = parseInt(document.getElementById('valorResidual').value);
+
+    let tablaHTML = '';
+    let depreciacionAnual = 0;
+    let depreciacionAnualAcumulada = 0;
+    let vidaUtildepreciadaAcumulada = 0;
+    let vidaUtilResidual = 0; 
+    let valorDepreciado = 0;
+
+    for (let i = 1; vidaUtildepreciadaAcumulada < vidaUtilTotal; i++) {
+
+        let vidaUtilAnual = parseInt(prompt(`La vida util actual es de ${vidaUtildepreciadaAcumulada} Ingrese la Vida Útil Anual para el Año ${i}:`));
+
+        vidaUtildepreciadaAcumulada += vidaUtilAnual
+        vidaUtilResidual = vidaUtilTotal - vidaUtildepreciadaAcumulada
+        depreciacionAnual = (vidaUtilAnual / vidaUtilTotal) * (costoActivo - valorResidual);
+        depreciacionAnualAcumulada += depreciacionAnual
+        let valorActivoEnLibro = costoActivo - depreciacionAnualAcumulada
+
+        let porcentajeDepreciado = (depreciacionAnualAcumulada / costoActivo) * 100
+        tablaHTML += `<tr><td>${i}</td><td>$${depreciacionAnual.toFixed(2)}</td><td>$${vidaUtildepreciadaAcumulada.toFixed(2)}</td><td>$${depreciacionAnualAcumulada.toFixed(2)}</td><td>$${valorActivoEnLibro.toFixed(2)}</td><td>${porcentajeDepreciado.toFixed(2)}%</td></tr>`;
+     }
+     
+document.querySelector('#resultadoTabla tbody').innerHTML += tablaHTML;
+}
+
+// Evento submit del formulario
+document.getElementById('depreciacionForm').addEventListener('submit', function(event) {
+event.preventDefault();
+calcularDepreciacion();
+});
+
+</script>
+</body>
+</html>

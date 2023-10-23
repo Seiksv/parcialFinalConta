@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+
+    <title>Pear Corp -</title>
+
+    <link
+      href="../vendor/fontawesome-free/css/all.min.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css"
+      rel="stylesheet"
+    />
+
+    <!-- Custom styles for this template -->
+    <link href="../css/sb-admin-2.min.css" rel="stylesheet" />
+    <!-- Custom styles for this page -->
+    <link
+      href="../vendor/datatables/dataTables.bootstrap4.min.css"
+      rel="stylesheet"
+    />
+  </head>
+
+  <body id="page-top">
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+      <div id="sidebarCustom" data-include="../components/sidebar.html"></div>
+
+      <!-- Content Wrapper -->
+      <div id="content-wrapper" class="d-flex flex-column">
+        <!-- Main Content -->
+        <div id="content">
+          <!-- Topbar -->
+          <nav
+            class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow"
+          >
+            <!-- Sidebar Toggle (Topbar) -->
+            <form class="form-inline">
+              <button
+                id="sidebarToggleTop"
+                class="btn btn-link d-md-none rounded-circle mr-3"
+              >
+                <i class="fa fa-bars"></i>
+              </button>
+            </form>
+
+            <!-- Topbar Navbar -->
+            <ul class="navbar-nav ml-auto">
+              <div class="topbar-divider d-none d-sm-block"></div>
+
+              <!-- Nav Item - User Information -->
+              <li class="nav-item dropdown no-arrow">
+                <a
+                  class="nav-link dropdown-toggle"
+                  href="#"
+                  id="userDropdown"
+                  role="button"
+                  data-toggle="dropdown"
+                  aria-haspopup="true"
+                  aria-expanded="false"
+                >
+                  <span class="mr-2 d-none d-lg-inline text-gray-600 small"
+                    >Mauricio Orellana</span
+                  >
+                  <i class="fa fa-user" aria-hidden="true"></i>
+                </a>
+                <!-- Dropdown - User Information -->
+                <div
+                  class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                  aria-labelledby="userDropdown"
+                >
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item" href="../pages/login.html">
+                    <i
+                      class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"
+                    ></i>
+                    Logout
+                  </a>
+                </div>
+              </li>
+            </ul>
+          </nav>
+          <!-- End of Topbar -->
+
+          <!-- Begin Page Content -->
+          <div class="container mt-5">
+            <h2 class="mb-3">Guardar Tipo de Activo</h2>
+            <div class="row">
+              <div class="col-md-4">
+                <input
+                  type="text"
+                  id="nombreActivo"
+                  class="form-control mb-2"
+                  placeholder="Nombre del activo"
+                />
+              </div>
+              <div class="col-md-4">
+                <input
+                  type="text"
+                  id="descripcionActivo"
+                  class="form-control mb-2"
+                  placeholder="Descripcion del activo"
+                />
+              </div>
+              <div class="col-md-4">
+                <input
+                  type="text"
+                  id="serieActivo"
+                  class="form-control mb-2"
+                  placeholder="Serie del activo"
+                />
+              </div>
+              <div class="col-md-4">
+                <select name="tipoActivo" id="tipoActivo" class="form-control">
+                  <option value="hora">Depreciable por hora</option>
+                  <option value="unidades">Depreciable por unidades</option>
+                  <option value="kilometraje">
+                    Depreciable por kilometraje
+                  </option>
+                </select>
+              </div>
+              <div class="col-md-4">
+                <input
+                  type="number"
+                  id="valorActivo"
+                  class="form-control mb-2"
+                  placeholder="Valor del activo"
+                />
+              </div>
+              <div class="col-md-4">
+                <input
+                  type="number"
+                  id="vidaUtil"
+                  class="form-control mb-2"
+                  placeholder="Vida util del activo en anios"
+                />
+              </div>
+              <div class="col-md-4">
+                <button
+                  class="btn btn-primary mb-2 btn-block"
+                  onclick="guardarTipoActivo()"
+                >
+                  Guardar
+                </button>
+              </div>
+            </div>
+
+            <h2 class="mt-5 mb-3">Tipos de Activos Guardados</h2>
+            <div class="table-responsive">
+              <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th scope="col">Serie</th>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Descripio</th>
+                    <th scope="col">Tipo activo</th>
+                    <th scope="col">Valor</th>
+                    <th scope="col">Vida Util</th>
+
+                    <th scope="col">Acciones</th>
+                  </tr>
+                </thead>
+                <tbody id="tablaActivos"></tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- /.container-fluid -->
+        </div>
+        <!-- End of Main Content -->
+
+        <!-- Footer -->
+        <footer class="sticky-footer bg-white">
+          <div class="container my-auto">
+            <div class="copyright text-center my-auto">
+              <span>Copyright &copy; Your Website 2020</span>
+            </div>
+          </div>
+        </footer>
+        <!-- End of Footer -->
+      </div>
+      <!-- End of Content Wrapper -->
+    </div>
+    <!-- End of Page Wrapper -->
+
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+      <i class="fas fa-angle-up"></i>
+    </a>
+
+    <!-- Bootstrap core JavaScript-->
+    <script src="../vendor/jquery/jquery.min.js"></script>
+    <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="../js/sb-admin-2.min.js"></script>
+
+    <!-- Page level plugins -->
+    <script src="../vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="../vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="../js/includeHTML.js"></script>
+
+    <!-- Sweet Alert -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <!-- Sweet Messages -->
+    <script src="../js/sweetMessages.js"></script>
+
+    <!-- Select 2 -->
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+    <!-- Costants scripts -->
+    <script src="../js/constants.js"></script>
+    <script>
+      function actualizarListaActivos() {
+        const tablaActivos = document.getElementById("tablaActivos");
+        tablaActivos.innerHTML = "";
+
+        const activosGuardados =
+          JSON.parse(localStorage.getItem("activos")) || [];
+
+        activosGuardados.forEach((activo, index) => {
+          const row = document.createElement("tr");
+
+          const serieCell = document.createElement("td");
+          serieCell.textContent = activo.serie;
+          row.appendChild(serieCell);
+
+          const nombreCell = document.createElement("td");
+          nombreCell.textContent = activo.nombre;
+          row.appendChild(nombreCell);
+
+          const descripcionCell = document.createElement("td");
+          descripcionCell.textContent = activo.descripcion;
+          row.appendChild(descripcionCell);
+
+          const tipoCell = document.createElement("td");
+          tipoCell.textContent = activo.tipo;
+          row.appendChild(tipoCell);
+
+          const valorCell = document.createElement("td");
+          valorCell.textContent = activo.valor.toFixed(2);
+          row.appendChild(valorCell);
+
+          const vidaUtilCell = document.createElement("td");
+          vidaUtilCell.textContent = activo.vidaUtil;
+          row.appendChild(vidaUtilCell);
+
+          const accionesCell = document.createElement("td");
+
+          const modificarButton = document.createElement("button");
+          modificarButton.textContent = "Modificar";
+          modificarButton.className = "btn btn-primary btn-sm mr-2";
+          modificarButton.addEventListener("click", () =>
+            modificarActivo(index)
+          );
+
+          const eliminarButton = document.createElement("button");
+          eliminarButton.textContent = "Eliminar";
+          eliminarButton.className = "btn btn-danger btn-sm";
+          eliminarButton.addEventListener("click", () => eliminarActivo(index));
+
+          accionesCell.appendChild(modificarButton);
+          accionesCell.appendChild(eliminarButton);
+
+          row.appendChild(accionesCell);
+
+          tablaActivos.appendChild(row);
+        });
+      }
+
+      function guardarTipoActivo() {
+        const nombre = document.getElementById("nombreActivo").value;
+        const valor = parseFloat(document.getElementById("valorActivo").value);
+        const serie = document.getElementById("serieActivo").value;
+        const descripcion = document.getElementById("descripcionActivo").value;
+        const tipo = document.getElementById("tipoActivo").value;
+        const vidaUtil = document.getElementById("vidaUtil").value;
+
+        if (nombre && !isNaN(valor)) {
+          const activo = {
+            nombre: nombre,
+            valor: valor,
+            serie: serie,
+            descripcion: descripcion,
+            tipo: tipo,
+            vidaUtil: vidaUtil,
+          };
+          const activosGuardados =
+            JSON.parse(localStorage.getItem("activos")) || [];
+
+          activosGuardados.push(activo);
+          localStorage.setItem("activos", JSON.stringify(activosGuardados));
+
+          actualizarListaActivos();
+          limpiarCampos();
+        } else {
+          alert("Ingresa un nombre y un valor válido para guardar el activo.");
+        }
+      }
+
+      function modificarActivo(index) {
+        const activosGuardados =
+          JSON.parse(localStorage.getItem("activos")) || [];
+        const activo = activosGuardados[index];
+
+        const nuevoNombre = prompt("Ingresa el nuevo nombre:", activo.nombre);
+        const nuevoValor = parseFloat(
+          prompt("Ingresa el nuevo valor:", activo.valor)
+        );
+        const nuevaSerie = prompt("Ingresa el nuevo serie:", activo.serie);
+        const nuevoDescripcion = parseFloat(
+          prompt("Ingresa el nuevo descripcion:", activo.descripcion)
+        );
+
+        if (nuevoNombre && !isNaN(nuevoValor)) {
+          activo.nombre = nuevoNombre;
+          activo.valor = nuevoValor;
+          activo.serie = nuevaSerie;
+          activo.descripcion = nuevoDescripcion;
+
+          localStorage.setItem("activos", JSON.stringify(activosGuardados));
+          actualizarListaActivos();
+        }
+      }
+
+      function eliminarActivo(index) {
+        const activosGuardados =
+          JSON.parse(localStorage.getItem("activos")) || [];
+        activosGuardados.splice(index, 1);
+        localStorage.setItem("activos", JSON.stringify(activosGuardados));
+        actualizarListaActivos();
+      }
+      function limpiarCampos() {
+        document.getElementById("nombreActivo").value = "";
+        document.getElementById("valorActivo").value = "";
+      }
+      actualizarListaActivos();
+    </script>
+  </body>
+</html>
